@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Node {
+    int data; 
+    struct Node* left;
+    struct Node* right; 
+} Node;
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    if (newNode == NULL) {
+        printf("Memory allocation failed\n");
+        exit(1);
+    }
+    newNode->data = data;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNodee;
+}
+Node* insertNode(Node* root, int data) {
+    if (root == NULL) {
+        return createNode(data);
+    }
+    if (data < root->data) {
+        root->left = insertNode(root->left, data);
+    } else {
+        root->right = insertNode(root->right, data);
+    }
+    return root;
+}
+void printPreOrder(Node* root) {
+    if (root != NULL) {
+        printf("%d ", root->data); // Print the data of the current node
+        printPreOrder(root->left); // Recursively print left subtree
+        printPreOrder(root->right); // Recursively print right subtree
+    }
+}
+
+int main() {
+    Node* root = NULL; // Start with an empty tree
+
+    // Insert nodes into the binary search tree
+    root = insertNode(root, 10);
+    insertNode(root, 5);
+    insertNode(root, 15);
+    insertNode(root, 3);
+    insertNode(root, 7);
+    insertNode(root, 18);
+
+    // Print the binary tree (Pre-order traversal)
+    printf("Pre-order traversal of the binary search tree:\n");
+    printPreOrder(root);
+    printf("\n");
+
+    // Free allocated memory (not shown here for brevity, but you should free allocated nodes)
+
+    return 0;
+}
