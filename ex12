@@ -1,0 +1,45 @@
+class TreeNode:
+    def __init__(self, value=0, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+def diameter_of_tree(root):
+    def height_and_diameter(node):
+        if node is None:
+            return 0, 0  # height, diameter
+        
+        left_height, left_diameter = height_and_diameter(node.left)
+        right_height, right_diameter = height_and_diameter(node.right)
+        
+        # Compute the height of the current node
+        current_height = 1 + max(left_height, right_height)
+        
+        # Compute the diameter of the current node
+        current_diameter = max(left_diameter, right_diameter, left_height + right_height)
+        
+        return current_height, current_diameter
+    
+    _, diameter = height_and_diameter(root)
+    return diameter
+
+# Example usage:
+# Constructing a binary tree
+A = TreeNode(10)
+B = TreeNode(5)
+C = TreeNode(20)
+D = TreeNode(1)
+E = TreeNode(8)
+F = TreeNode(15)
+G = TreeNode(25)
+
+A.left = B
+A.right = C
+B.left = D
+B.right = E
+C.left = F
+C.right = G
+
+# Calculate the diameter of the tree
+diameter = diameter_of_tree(A)
+print(f"Diameter of the tree: {diameter}")  # Output: Diameter of the tree: 4
