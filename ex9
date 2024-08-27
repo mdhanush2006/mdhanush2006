@@ -1,0 +1,49 @@
+class TreeNode:
+    def __init__(self, value=0, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+def find_depth(root, target):
+    def dfs(node, depth):
+        if node is None:
+            return -1  # Target not found
+        
+        if node.value == target:
+            return depth
+        
+        # Recursively search in the left and right subtrees
+        left_depth = dfs(node.left, depth + 1)
+        if left_depth != -1:
+            return left_depth
+        
+        right_depth = dfs(node.right, depth + 1)
+        return right_depth
+    
+    return dfs(root, 0)
+
+# Example usage:
+# Constructing a binary tree
+A = TreeNode(10)
+B = TreeNode(5)
+C = TreeNode(20)
+D = TreeNode(1)
+E = TreeNode(8)
+
+A.left = B
+A.right = C
+B.left = D
+B.right = E
+
+# Find the depth of a specific node
+node_value = 8
+depth = find_depth(A, node_value)
+print(f"Depth of node with value {node_value}: {depth}")  # Output: Depth of node with value 8: 2
+
+node_value = 20
+depth = find_depth(A, node_value)
+print(f"Depth of node with value {node_value}: {depth}")  # Output: Depth of node with value 20: 1
+
+node_value = 100
+depth = find_depth(A, node_value)
+print(f"Depth of node with value {node_value}: {depth}")  # Output: Depth of node with value 100: -1 (not found)
