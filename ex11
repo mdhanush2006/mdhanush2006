@@ -1,0 +1,29 @@
+class TreeNode:
+    def __init__(self, value=0, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+def sum_of_nodes(root):
+    if root is None:
+        return 0
+    
+    # Sum the value of the current node plus the sum of the left and right subtrees
+    return root.value + sum_of_nodes(root.left) + sum_of_nodes(root.right)
+
+# Example usage:
+# Constructing a binary tree
+A = TreeNode(10)
+B = TreeNode(5)
+C = TreeNode(20)
+D = TreeNode(1)
+E = TreeNode(8)
+
+A.left = B
+A.right = C
+B.left = D
+B.right = E
+
+# Calculate the sum of all node values in the tree
+total_sum = sum_of_nodes(A)
+print(f"Sum of all node values: {total_sum}")  # Output: Sum of all node values: 44
