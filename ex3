@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Node {
+    int data; 
+    struct Node* left;
+    struct Node* right;
+} Node;
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    if (newNode == NULL) {
+        printf("Memory allocation failed\n");
+        exit(1); 
+    }
+    newNode->data = data;
+    newNode->left = NULL; 
+    newNode->right = NULL;
+    return newNode;
+}
+Node* insertNode(Node* root, int data) {
+    if (root == NULL) {
+        return createNode(data);
+    }
+    if (data < root->data) {
+        root->left = insertNode(root->left, data);
+    } else {
+        root->right = insertNode(root->right, data);
+    }
+
+}
+void printInOrder(Node* root) {
+    if (root != NULL) {
+        printInOrder(root->left); // Recursively print left subtree
+        printf("%d ", root->data); // Print the data of the current node
+        printInOrder(root->right); // Recursively print right subtree
+    }
+}
+
+int main() {
+    Node* root = NULL; // Start with an empty tree                                                                
+    insertNode(root, 5);
+    insertNode(root, 15);
+    insertNode(root, 3);
+    insertNode(root, 7);
+    insertNode(root, 18);
+    printf("In-order traversal of the binary search tree:\n");
+    printInOrder(root);
+    printf("\n");
+    return 0;
+}
