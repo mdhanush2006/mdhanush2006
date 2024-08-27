@@ -1,0 +1,29 @@
+class TreeNode:
+    def __init__(self, value=0, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+def count_nodes(root):
+    if root is None:
+        return 0
+    
+    # Count the current node plus the nodes in the left and right subtrees
+    return 1 + count_nodes(root.left) + count_nodes(root.right)
+
+# Example usage:
+# Constructing a binary tree
+A = TreeNode(10)
+B = TreeNode(5)
+C = TreeNode(20)
+D = TreeNode(1)
+E = TreeNode(8)
+
+A.left = B
+A.right = C
+B.left = D
+B.right = E
+
+# Count the total number of nodes in the tree
+total_nodes = count_nodes(A)
+print(f"Total number of nodes: {total_nodes}")  # Output: Total number of nodes: 5
